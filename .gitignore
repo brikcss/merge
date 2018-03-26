@@ -13,3 +13,4 @@ node_modules/
 # Repo
 dist/
 .nyc_output/
+coverage/

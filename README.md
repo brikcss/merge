@@ -4,6 +4,14 @@
 
 <!-- Shields. -->
 <p>
+	<!-- Codacy. -->
+	<a href="https://www.codacy.com/app/thezimmee/merge">
+		<img alt="NPM version" src="https://api.codacy.com/project/badge/Grade/49af7ce4215c4720a6dbc90c3b7fcdbe?style=flat-square">
+	</a>
+	<!-- Coveralls -->
+	<a href='https://coveralls.io/github/brikcss/merge?branch=master'>
+		<img src='https://coveralls.io/repos/github/brikcss/merge/badge.svg?branch=master' alt='Coverage Status' />
+	</a>
 	<!-- NPM version. -->
 	<a href="https://www.npmjs.com/package/@brikcss/merge">
 		<img alt="NPM version" src="https://img.shields.io/npm/v/@brikcss/merge.svg?style=flat-square">
