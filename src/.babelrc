@@ -1,0 +1,15 @@
+{
+	"moduleId": "merge",
+	"presets": [
+		[
+			"env",
+			{
+				"targets": {
+					"node": "8",
+				},
+				"modules": false
+			}
+		]
+	],
+	"plugins": ["external-helpers"]
+}
