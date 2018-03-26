@@ -10,7 +10,7 @@ import uglify from 'rollup-plugin-uglify';
 import pkg from './package.json';
 
 // Flags.
-const isProd = process.env.NODE_ENV === 'production';
+const isProd = process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test';
 
 // Set base options.
 const base = {
