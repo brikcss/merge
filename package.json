@@ -52,7 +52,7 @@
 		"test:lint": "node ./node_modules/.bin/eslint ./src/merge.js && echo \"\n[ok] Linter complete.\n\"",
 		"test:unit": "node ./node_modules/.bin/mocha \"./test/*.spec.js\" --reporter=mocha-better-spec-reporter --colors",
 		"test:coverage": "nyc --reporter=lcov --reporter=text mocha \"./test/*.spec.js\" --recursive && concurrently \"cat coverage/lcov.info | codacy-coverage\" \"cat coverage/lcov.info | coveralls\"",
-		"prebuild": "node ./node_modules/.bin/rimraf dist",
+		"prebuild": "rimraf dist || echo \"No rimraf exists. Continuing...\" exit 0",
 		"build": "rollup --config=.rolluprc.js",
 		"watch": "concurrently \"npm run build -- --watch\" \"watch src/merge.js --exec='npm run test:unit'\"",
 		"semantic-release": "semantic-release"
