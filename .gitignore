@@ -5,12 +5,12 @@
 ### ------------------------------------------------------------------------------------------------
 
 # Node
-node_modules/
+/node_modules/
 
 # MacOS
 .DS_Store
 
 # Repo
-dist/
-.nyc_output/
-coverage/
+/dist/
+/.nyc_output/
+/coverage/
