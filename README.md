@@ -62,6 +62,8 @@ or pass an array of objects with options:
 merge([objects...], options)
 ```
 
+**_Note: In the browser, merge is attached to the global object `brikcss`, and is accessible via `brikcss.merge()`._
+
 ## Options
 
 **`arrayStrategy`** _{String}_ ('unique' | 'concat' | 'overwrite')
