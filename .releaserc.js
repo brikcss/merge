@@ -10,7 +10,7 @@ const config = {
 	github: {
 		path: '@semantic-release/github',
 		assignees: ['thezimmee'],
-		assets: 'dist/'
+		assets: ['dist/{lib,umd,browser,module}/*.js']
 	},
 	// See https://github.com/semantic-release/npm.
 	npm: '@semantic-release/npm'
