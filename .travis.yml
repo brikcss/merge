@@ -18,15 +18,11 @@ jobs:
   include:
     - stage: Test on node 8
       node_js: '8'
-      before_script:
-        - npm prune -d
-        - npm i rimraf rollup -g
+      before_script: npm prune -d
       script: npm run test -d
     - stage: Test and release on node 9
       node_js: '9'
-      before_script:
-        - npm prune -d
-        - npm i rimraf rollup -g
+      before_script: npm prune -d
       script: npm run test -d
       deploy:
         provider: script
