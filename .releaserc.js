@@ -10,7 +10,20 @@ const config = {
 	github: {
 		path: '@semantic-release/github',
 		assignees: ['thezimmee'],
-		assets: ['dist/{lib,umd,browser,module}/*.js']
+		assets: (() => {
+			const assets = [];
+			['lib', 'umd', 'browser', 'module'].forEach((type) => {
+				assets.push({
+					path: `dist/${type}/merge.js`,
+					name: `${type}/merge.js`
+				});
+				assets.push({
+					path: `dist/${type}/merge.min.js`,
+					name: `${type}/merge.min.js`
+				});
+			});
+			return assets;
+		})()
 	},
 	// See https://github.com/semantic-release/npm.
 	npm: '@semantic-release/npm'
