@@ -18,11 +18,11 @@
 	</a>
 	<!-- Codacy. -->
 	<a href="https://www.codacy.com/app/thezimmee/merge">
-		<img alt="NPM version" src="https://img.shields.io/codacy/grade/e27821fb6289410b8f58338c7e0bc686/master.svg?style=flat-square">
+		<img alt="NPM version" src="https://img.shields.io/codacy/grade/49af7ce4215c4720a6dbc90c3b7fcdbe/master.svg?style=flat-square">
 	</a>
 	<!-- Coveralls -->
 	<a href='https://coveralls.io/github/brikcss/merge?branch=master'>
-		<img src='https://img.shields.io/coveralls/github/jekyll/jekyll/master.svg?style=flat-square' alt='Coverage Status' />
+		<img src='https://img.shields.io/coveralls/github/brikcss/merge/master.svg?style=flat-square' alt='Coverage Status' />
 	</a>
 	<!-- Commitizen friendly. -->
 	<a href="http://commitizen.github.io/cz-cli/">
