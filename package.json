@@ -57,7 +57,7 @@
 		"watch": "concurrently \"npm run build -- --watch\" \"watch src/merge.js --exec='npm run test:unit'\"",
 		"semantic-release": "semantic-release"
 	},
-	"dependencies": {
+	"devDependencies": {
 		"@brikcss/git-hooks": "1.x",
 		"@brikcss/watcher-cli": "0.x",
 		"@commitlint/cli": "6.x",
