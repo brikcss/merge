@@ -16,12 +16,8 @@ env: BUILD_LEADER_ID=2 NODE_ENV=test
 
 jobs:
   include:
-    - stage: Test on node 8
+    - stage: Test and release on node 8
       node_js: '8'
-      before_script: npm prune -d
-      script: npm test -d
-    - stage: Test and release on node 9
-      node_js: '9'
       before_script: npm prune -d
       script: npm test -d
       deploy:
