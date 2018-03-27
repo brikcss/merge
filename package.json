@@ -29,12 +29,7 @@
 	"directories": {
 		"lib": "./dist/lib"
 	},
-	"files": [
-		"./dist/lib",
-		"./dist/umd",
-		"./dist/module",
-		"./dist/browser"
-	],
+	"files": ["dist"],
 	"publishConfig": {
 		"tag": "dev",
 		"access": "public"

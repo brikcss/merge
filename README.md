@@ -50,13 +50,13 @@ npm install @brikcss/merge --save-dev
 
 ## Usage
 
-Pass list of objects directly to the merge function:
+Pass list of objects (or arrays) directly to the merge function:
 
 ```js
 merge(objects...)
 ```
 
-or pass an array of objects with options:
+or pass an array of objects (or arrays) with options:
 
 ```js
 merge([objects...], options)
