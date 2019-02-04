@@ -2,18 +2,9 @@
 	"name": "@brikcss/merge",
 	"version": "0.0.0-development",
 	"description": "Utility to perform a deep merge of a list of objects or arrays.",
-	"keywords": [
-		"brikcss",
-		"merge",
-		"extend",
-		"assign",
-		"deep merge",
-		"clone"
-	],
+	"keywords": ["brikcss", "merge", "extend", "assign", "deep merge", "clone"],
 	"author": "BrikCSS <https://github.com/brikcss>",
-	"contributors": [
-		"The Zimmee <thezimmee@gmail.com>"
-	],
+	"contributors": ["The Zimmee <thezimmee@gmail.com>"],
 	"homepage": "https://github.com/brikcss/merge",
 	"repository": {
 		"type": "git",
@@ -29,34 +20,28 @@
 	"directories": {
 		"lib": "./dist/lib"
 	},
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"publishConfig": {
 		"tag": "dev",
 		"access": "public"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "node ./node_modules/.bin/pre-commit-lint",
-			"commit-msg": "commitlint -e $GIT_PARAMS && . ./node_modules/.bin/commit-msg-stamp-branch ${GIT_PARAMS}",
-			"pre-push": ". ./node_modules/.bin/pre-push-check-stage && echo \"\n[ok] Pushing code...\""
-		}
 	},
 	"scripts": {
 		"start": "npm run watch",
 		"pretest": "npm run build",
 		"test": "concurrently \"npm run test:lint\" \"npm run test:coverage\"",
-		"test:lint": "node ./node_modules/.bin/eslint ./src/merge.js && echo \"\n[ok] Linter complete.\n\"",
+		"test:lint":
+			"node ./node_modules/.bin/eslint ./src/merge.js && echo \"\n[ok] Linter complete.\n\"",
 		"test:unit": "jest --config .jestrc.js",
-		"test:coverage": "jest --config .jestrc.js --coverage && cat coverage/lcov.info | codacy-coverage && cat coverage/lcov.info | coveralls",
+		"test:coverage":
+			"jest --config .jestrc.js --coverage && cat coverage/lcov.info | codacy-coverage && cat coverage/lcov.info | coveralls",
 		"prebuild": "rimraf dist",
 		"build": "rollup --config=.rolluprc.js",
-		"watch": "concurrently \"npm run build -- --watch\" \"jest --config .jestrc.js --watchAll\"",
+		"watch":
+			"concurrently \"npm run build -- --watch\" \"jest --config .jestrc.js --watchAll\"",
 		"semantic-release": "semantic-release"
 	},
 	"devDependencies": {
-		"@brikcss/git-hooks": "1.x",
+		"@brikcss/git-hooks": "^2.1.0",
 		"@brikcss/watcher-cli": "0.x",
 		"@commitlint/cli": "6.x",
 		"babel-core": "6.x",
@@ -73,7 +58,7 @@
 		"rollup-plugin-node-resolve": "3.x",
 		"rollup-plugin-prettier": "0.x",
 		"rollup-plugin-uglify": "3.x",
-		"semantic-release": "15.x"
+		"semantic-release": "^15.13.3"
 	},
 	"dependencies": {}
 }
