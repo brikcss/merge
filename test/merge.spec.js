@@ -1,4 +1,4 @@
-/* eslint-env mocha */
+/* eslint-env jest */
 const assert = require('assert');
 const merge = require('../dist/lib/merge.js');
 
@@ -51,8 +51,8 @@ describe('merge()', () => {
 			j: [1, 2, 3, 4],
 			k: 'hi'
 		};
-		assert.deepEqual(merge(test1), result1);
-		assert.deepEqual(merge(...test1), result1);
+		assert.deepStrictEqual(merge(test1), result1);
+		assert.deepStrictEqual(merge(...test1), result1);
 	});
 
 	const test2 = [
@@ -61,7 +61,7 @@ describe('merge()', () => {
 		{ two: 2, array: [4, 5, 6] }
 	];
 	it('should merge objects and make arrays unique', () => {
-		assert.deepEqual(merge([{}, ...test2], { arrayStrategy: 'unique' }), {
+		assert.deepStrictEqual(merge([{}, ...test2], { arrayStrategy: 'unique' }), {
 			a: 'a',
 			b: 2,
 			c: 'c',
@@ -69,14 +69,14 @@ describe('merge()', () => {
 			two: 2,
 			array: [1, 2, 3, 4, 5, 6]
 		});
-		assert.deepEqual(test2, [
+		assert.deepStrictEqual(test2, [
 			{ a: 'a', b: 'b', c: 'c', array: [1, 2, 3] },
 			{ b: 2, one: 1, array: [2, 3, 4] },
 			{ two: 2, array: [4, 5, 6] }
 		]);
 	});
 	it('should merge objects and overwrite arrays', () => {
-		assert.deepEqual(merge([{}, ...test2], { arrayStrategy: 'overwrite' }), {
+		assert.deepStrictEqual(merge([{}, ...test2], { arrayStrategy: 'overwrite' }), {
 			a: 'a',
 			b: 2,
 			c: 'c',
@@ -84,14 +84,14 @@ describe('merge()', () => {
 			two: 2,
 			array: [4, 5, 6]
 		});
-		assert.deepEqual(test2, [
+		assert.deepStrictEqual(test2, [
 			{ a: 'a', b: 'b', c: 'c', array: [1, 2, 3] },
 			{ b: 2, one: 1, array: [2, 3, 4] },
 			{ two: 2, array: [4, 5, 6] }
 		]);
 	});
 	it('should merge objects and concatenate arrays', () => {
-		assert.deepEqual(merge([{}, ...test2], { arrayStrategy: 'concat' }), {
+		assert.deepStrictEqual(merge([{}, ...test2], { arrayStrategy: 'concat' }), {
 			a: 'a',
 			b: 2,
 			c: 'c',
@@ -99,7 +99,7 @@ describe('merge()', () => {
 			two: 2,
 			array: [1, 2, 3, 2, 3, 4, 4, 5, 6]
 		});
-		assert.deepEqual(test2, [
+		assert.deepStrictEqual(test2, [
 			{ a: 'a', b: 'b', c: 'c', array: [1, 2, 3] },
 			{ b: 2, one: 1, array: [2, 3, 4] },
 			{ two: 2, array: [4, 5, 6] }
@@ -108,10 +108,10 @@ describe('merge()', () => {
 
 	const test3 = [[1, 2, 3], [2, 3, 4, 5], [1, 5, 9, 10]];
 	it('should merge and make arrays unique', () => {
-		assert.deepEqual(merge(test3, { arrayStrategy: 'unique' }), [1, 2, 3, 4, 5, 9, 10]);
+		assert.deepStrictEqual(merge(test3, { arrayStrategy: 'unique' }), [1, 2, 3, 4, 5, 9, 10]);
 	});
 	it('should merge and concatenate arrays', () => {
-		assert.deepEqual(merge(test3, { arrayStrategy: 'concat' }), [
+		assert.deepStrictEqual(merge(test3, { arrayStrategy: 'concat' }), [
 			1,
 			2,
 			3,
@@ -126,7 +126,7 @@ describe('merge()', () => {
 		]);
 	});
 	it('should merge and overwrite arrays', () => {
-		assert.deepEqual(merge(test3, { arrayStrategy: 'overwrite' }), [1, 5, 9, 10]);
+		assert.deepStrictEqual(merge(test3, { arrayStrategy: 'overwrite' }), [1, 5, 9, 10]);
 	});
 
 	const test4 = [
@@ -134,7 +134,7 @@ describe('merge()', () => {
 		[1, { one: 'one', two: { three: 'three' }, four: 'four' }, 9, 10]
 	];
 	it('should merge arrays with objects with concatenate strategy', () => {
-		assert.deepEqual(merge(test4, { arrayStrategy: 'concat' }), [
+		assert.deepStrictEqual(merge(test4, { arrayStrategy: 'concat' }), [
 			2,
 			{ one: 1, two: { three: 3, four: 4 }, five: 5 },
 			9,
@@ -146,7 +146,7 @@ describe('merge()', () => {
 		]);
 	});
 	it('should merge arrays with objects with unique strategy', () => {
-		assert.deepEqual(merge(test4, { arrayStrategy: 'unique' }), [
+		assert.deepStrictEqual(merge(test4, { arrayStrategy: 'unique' }), [
 			2,
 			{ one: 1, two: { three: 3, four: 4 }, five: 5 },
 			9,
@@ -157,23 +157,23 @@ describe('merge()', () => {
 		]);
 	});
 	it('should merge arrays with objects with overwrite strategy', () => {
-		assert.deepEqual(merge(test4, { arrayStrategy: 'overwrite' }), test4[1]);
+		assert.deepStrictEqual(merge(test4, { arrayStrategy: 'overwrite' }), test4[1]);
 	});
 
 	it('should merge two arrays, even if they are empty', () => {
-		assert.deepEqual(merge([], ['one', 'two']), ['one', 'two']);
+		assert.deepStrictEqual(merge([], ['one', 'two']), ['one', 'two']);
 	});
 
 	it('should clone objects when the first argument is empty', () => {
 		let brik = { options: { files: ['/this/path/one', '/this/path/two'] } };
 		let child = { files: '/this/path', root: '/another/path' };
 		let merged = merge({}, brik, { options: child });
-		assert.deepEqual(merged, {
+		assert.deepStrictEqual(merged, {
 			options: {
 				files: '/this/path',
 				root: '/another/path'
 			}
 		});
-		assert.deepEqual(brik, { options: { files: ['/this/path/one', '/this/path/two'] } });
+		assert.deepStrictEqual(brik, { options: { files: ['/this/path/one', '/this/path/two'] } });
 	});
 });
