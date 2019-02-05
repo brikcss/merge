@@ -3,6 +3,7 @@
 > Utility to perform a deep merge of a list of objects or arrays.
 
 <!-- Shields. -->
+
 <p>
 	<!-- NPM version. -->
 	<a href="https://www.npmjs.com/package/@brikcss/merge">
@@ -18,7 +19,10 @@
 	</a>
 	<!-- Codacy. -->
 	<a href="https://www.codacy.com/app/thezimmee/merge">
-		<img alt="NPM version" src="https://img.shields.io/codacy/grade/49af7ce4215c4720a6dbc90c3b7fcdbe/master.svg?style=flat-square">
+		<img alt="Codacy Code Quality" src="https://img.shields.io/codacy/grade/49af7ce4215c4720a6dbc90c3b7fcdbe/master.svg?style=flat-square">
+	</a>
+	<a href="https://www.codacy.com/app/thezimmee/merge">
+		<img alt="Codacy Code Coverage" src="https://img.shields.io/codacy/coverage/49af7ce4215c4720a6dbc90c3b7fcdbe/master.svg?style=flat-square">
 	</a>
 	<!-- Coveralls -->
 	<a href='https://coveralls.io/github/brikcss/merge?branch=master'>
@@ -62,18 +66,18 @@ or pass an array of objects (or arrays) with options:
 merge([objects...], options)
 ```
 
-**_Note: In the browser, merge is attached to the global object `brikcss`, and is accessible via `brikcss.merge()`._
+\*\*_Note: In the browser, merge is attached to the global object `brikcss`, and is accessible via `brikcss.merge()`._
 
 ## Options
 
 **`arrayStrategy`** _{String}_ ('unique' | 'concat' | 'overwrite')
 
-- `unique` (default): Concatenate arrays and remove duplicates.
-- `concat`: Concatenate arrays, but do not remove duplicates.
-- `overwrite`: Overwrite target array with source.
+*   `unique` (default): Concatenate arrays and remove duplicates.
+*   `concat`: Concatenate arrays, but do not remove duplicates.
+*   `overwrite`: Overwrite target array with source.
 
 ## Environment support
 
-| Node   | CLI   | UMD   | ES Module | Browser   |
-|:------:|:-----:|:-----:|:---------:|:---------:|
-| ✔      | x     | ✔    | ✔         | ✔         |
+| Node | CLI | UMD | ES Module | Browser |
+| :--: | :-: | :-: | :-------: | :-----: |
+|  ✔   |  x  |  ✔  |     ✔     |    ✔    |
