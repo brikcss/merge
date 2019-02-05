@@ -1,8 +1,4 @@
-### ------------------------------------------------------------------------------------------------
-##  @filename  .browserslistrc
-##  @author  brikcss  <https://github.com/brikcss>
-##  @description  https://github.com/ai/browserslist
-### ------------------------------------------------------------------------------------------------
+#!  .browserslistrc | @author brikcss <https://github.com/brikcss> | @reference <https://github.com/ai/browserslist>
 
 Last 2 versions
 IE 11

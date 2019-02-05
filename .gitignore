@@ -1,8 +1,4 @@
-### ------------------------------------------------------------------------------------------------
-##  @filename  .gitignore
-##  @author  brikcss  <https://github.com/brikcss>
-##  @description  https://git-scm.com/docs/gitignore
-### ------------------------------------------------------------------------------------------------
+#!  .browserslistrc | @author brikcss <https://github.com/brikcss> | @reference <https://github.com/ai/browserslist>
 
 # Node
 /node_modules/
