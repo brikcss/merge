@@ -12,5 +12,5 @@ module.exports = {
     matchBase: true,
     dot: true
   },
-  ignore: ['*.min.{js,css}']
+  ignore: ['dist/**/*']
 }

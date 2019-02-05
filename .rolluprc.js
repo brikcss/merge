@@ -4,10 +4,8 @@
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import babel from 'rollup-plugin-babel'
-import prettier from 'rollup-plugin-prettier'
-import uglify from 'rollup-plugin-uglify'
+import { terser as uglify } from 'rollup-plugin-terser'
 import pkg from './package.json'
-const prettierConfig = require('./.prettierrc.js')
 
 // Flags.
 const isProd = process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test'
@@ -47,7 +45,7 @@ let configs = [
       babel({
         exclude: 'node_modules/**'
       }),
-      isProd && prettier(prettierConfig)
+      isProd && uglify()
     ]
   },
   {
@@ -83,33 +81,10 @@ let configs = [
           ]
         ]
       }),
-      isProd && prettier(prettierConfig)
+      isProd && uglify()
     ]
   }
 ]
-
-// Add configs with minified files on production build.
-if (isProd) {
-  const prodConfigs = []
-  configs.forEach((config) => {
-    // Clone original config.
-    let newConfig = JSON.parse(JSON.stringify(config))
-    // Clone original plugins (they can't be cloned with above method).
-    newConfig.plugins = config.plugins.slice(0)
-    // Remove prettier.
-    if (newConfig.plugins[newConfig.plugins.length - 1].name === 'rollup-plugin-prettier') {
-      newConfig.plugins.splice(-1, 1)
-    }
-    // Add minifier and add `.min` to file name.
-    newConfig.plugins.push(uglify())
-    newConfig.output.forEach((output, i) => {
-      newConfig.output[i].file = newConfig.output[i].file.replace('.js', '.min.js')
-    })
-    // Add minified config.
-    prodConfigs.push(newConfig)
-  })
-  configs = configs.concat(prodConfigs)
-}
 
 // Merge each config with base config.
 configs = configs.map((config) => {
