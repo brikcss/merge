@@ -1,5 +1,7 @@
 # Deep Merge
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/brikcss/merge.svg)](https://greenkeeper.io/)
+
 > Utility to perform a deep merge of a list of objects or arrays.
 
 <!-- Shields. -->
