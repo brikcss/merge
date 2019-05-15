@@ -48,7 +48,7 @@
     "rimraf": "2.x",
     "rollup": "1.x",
     "rollup-plugin-babel": "4.x",
-    "rollup-plugin-commonjs": "9.x",
+    "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-node-resolve": "4.x",
     "rollup-plugin-terser": "^4.0.4",
     "semantic-release": "^15.13.3"
