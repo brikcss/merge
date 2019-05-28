@@ -2,6 +2,34 @@
   "name": "@brikcss/merge",
   "version": "0.0.0-development",
   "description": "Utility to perform a deep merge of a list of objects or arrays.",
+  "devDependencies": {
+    "@babel/preset-env": "^7.4.5",
+    "@brikcss/git-hooks": "^2.2.1",
+    "@brikcss/watcher-cli": "^1.0.0",
+    "@commitlint/cli": "7.x",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "codacy-coverage": "3.x",
+    "coveralls": "3.x",
+    "jest": "^24.8.0",
+    "rimraf": "2.x",
+    "rollup": "1.x",
+    "rollup-plugin-babel": "4.x",
+    "rollup-plugin-commonjs": "9.x",
+    "rollup-plugin-node-resolve": "4.x",
+    "rollup-plugin-terser": "^4.0.4",
+    "semantic-release": "^15.13.14"
+  },
+  "dependencies": {},
+  "scripts": {
+    "start": "npm run watch",
+    "pretest": "npm run build",
+    "test": "standard *.js --fix && jest --config .jestrc.js --coverage && cat coverage/lcov.info | codacy-coverage && cat coverage/lcov.info | coveralls",
+    "jest": "jest --config .jestrc.js",
+    "prebuild": "rimraf dist",
+    "build": "rollup --config=.rolluprc.js",
+    "watch": "jest --config=./.jestrc.js --watch",
+    "semantic-release": "semantic-release"
+  },
   "keywords": ["brikcss", "merge", "extend", "assign", "deep merge", "clone"],
   "author": "BrikCSS <https://github.com/brikcss>",
   "contributors": ["The Zimmee <thezimmee@gmail.com>"],
@@ -24,34 +52,5 @@
   "publishConfig": {
     "tag": "dev",
     "access": "public"
-  },
-  "scripts": {
-    "start": "npm run watch",
-    "pretest": "npm run build",
-    "test": "standard *.js --fix && jest --config .jestrc.js --coverage && cat coverage/lcov.info | codacy-coverage && cat coverage/lcov.info | coveralls",
-    "jest": "jest --config .jestrc.js",
-    "prebuild": "rimraf dist",
-    "build": "rollup --config=.rolluprc.js",
-    "watch": "concurrently \"npm run build -- --watch\" \"jest --config .jestrc.js --watchAll\"",
-    "semantic-release": "semantic-release"
-  },
-  "devDependencies": {
-    "@babel/preset-env": "^7.4.5",
-    "@brikcss/git-hooks": "^2.2.1",
-    "@brikcss/watcher-cli": "^1.0.0",
-    "@commitlint/cli": "7.x",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "codacy-coverage": "3.x",
-    "concurrently": "4.x",
-    "coveralls": "3.x",
-    "jest": "^24.8.0",
-    "rimraf": "2.x",
-    "rollup": "1.x",
-    "rollup-plugin-babel": "4.x",
-    "rollup-plugin-commonjs": "9.x",
-    "rollup-plugin-node-resolve": "4.x",
-    "rollup-plugin-terser": "^4.0.4",
-    "semantic-release": "^15.13.14"
-  },
-  "dependencies": {}
+  }
 }

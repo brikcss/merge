@@ -1,6 +1,5 @@
 /* eslint-env jest */
-const assert = require('assert')
-const merge = require('../dist/lib/merge.js')
+import merge from '../src/merge.js'
 
 describe('merge()', () => {
   it('merge objects', () => {
@@ -53,10 +52,10 @@ describe('merge()', () => {
       k: 'hi',
       l: 0
     }
-    assert.deepStrictEqual(merge({}, ...test1), result1)
-    assert.notDeepStrictEqual(test1[0], result1)
-    assert.deepStrictEqual(merge(...test1), result1)
-    assert.deepStrictEqual(test1[0], result1)
+    expect(merge({}, ...test1)).toEqual(result1)
+    expect(test1[0]).not.toEqual(result1)
+    expect(merge(...test1)).toEqual(result1)
+    expect(test1[0]).toEqual(result1)
   })
 
   const test2 = [
@@ -65,7 +64,7 @@ describe('merge()', () => {
     { two: 2, array: [4, 5, 6] }
   ]
   it('merge objects and make arrays unique', () => {
-    assert.deepStrictEqual(merge([{}, ...test2], { arrayStrategy: 'unique' }), {
+    expect(merge([{}, ...test2], { arrayStrategy: 'unique' })).toEqual({
       a: 'a',
       b: 2,
       c: 'c',
@@ -73,14 +72,14 @@ describe('merge()', () => {
       two: 2,
       array: [1, 2, 3, 4, 5, 6]
     })
-    assert.deepStrictEqual(test2, [
+    expect(test2).toEqual([
       { a: 'a', b: 'b', c: 'c', array: [1, 2, 3] },
       { b: 2, one: 1, array: [2, 3, 4] },
       { two: 2, array: [4, 5, 6] }
     ])
   })
   it('merge objects and overwrite arrays', () => {
-    assert.deepStrictEqual(merge([{}, ...test2], { arrayStrategy: 'overwrite' }), {
+    expect(merge([{}, ...test2], { arrayStrategy: 'overwrite' })).toEqual({
       a: 'a',
       b: 2,
       c: 'c',
@@ -88,14 +87,14 @@ describe('merge()', () => {
       two: 2,
       array: [4, 5, 6]
     })
-    assert.deepStrictEqual(test2, [
+    expect(test2).toEqual([
       { a: 'a', b: 'b', c: 'c', array: [1, 2, 3] },
       { b: 2, one: 1, array: [2, 3, 4] },
       { two: 2, array: [4, 5, 6] }
     ])
   })
   it('merge objects and concatenate arrays', () => {
-    assert.deepStrictEqual(merge([{}, ...test2], { arrayStrategy: 'concat' }), {
+    expect(merge([{}, ...test2], { arrayStrategy: 'concat' })).toEqual({
       a: 'a',
       b: 2,
       c: 'c',
@@ -103,7 +102,7 @@ describe('merge()', () => {
       two: 2,
       array: [1, 2, 3, 2, 3, 4, 4, 5, 6]
     })
-    assert.deepStrictEqual(test2, [
+    expect(test2).toEqual([
       { a: 'a', b: 'b', c: 'c', array: [1, 2, 3] },
       { b: 2, one: 1, array: [2, 3, 4] },
       { two: 2, array: [4, 5, 6] }
@@ -112,10 +111,10 @@ describe('merge()', () => {
 
   const test3 = [[1, 2, 3], [2, 3, 4, 5], [1, 5, 9, 10]]
   it('merge and make arrays unique', () => {
-    assert.deepStrictEqual(merge([[], ...test3], { arrayStrategy: 'unique' }), [1, 2, 3, 4, 5, 9, 10])
+    expect(merge([[], ...test3], { arrayStrategy: 'unique' })).toEqual([1, 2, 3, 4, 5, 9, 10])
   })
   it('merge and concatenate arrays', () => {
-    assert.deepStrictEqual(merge([[], ...test3], { arrayStrategy: 'concat' }), [
+    expect(merge([[], ...test3], { arrayStrategy: 'concat' })).toEqual([
       1,
       2,
       3,
@@ -130,7 +129,7 @@ describe('merge()', () => {
     ])
   })
   it('merge and overwrite arrays', () => {
-    assert.deepStrictEqual(merge(test3, { arrayStrategy: 'overwrite' }), [1, 5, 9, 10])
+    expect(merge(test3, { arrayStrategy: 'overwrite' })).toEqual([1, 5, 9, 10])
   })
 
   const test4 = [
@@ -138,7 +137,7 @@ describe('merge()', () => {
     [1, { one: 'one', two: { three: 'three' }, four: 'four' }, 9, 10]
   ]
   it('merge arrays with objects with concatenate strategy', () => {
-    assert.deepStrictEqual(merge([[], ...test4], { arrayStrategy: 'concat' }), [
+    expect(merge([[], ...test4], { arrayStrategy: 'concat' })).toEqual([
       2,
       { one: 1, two: { three: 3, four: 4 }, five: 5 },
       9,
@@ -150,7 +149,7 @@ describe('merge()', () => {
     ])
   })
   it('merge arrays with objects with unique strategy', () => {
-    assert.deepStrictEqual(merge([[], ...test4], { arrayStrategy: 'unique' }), [
+    expect(merge([[], ...test4], { arrayStrategy: 'unique' })).toEqual([
       2,
       { one: 1, two: { three: 3, four: 4 }, five: 5 },
       9,
@@ -161,23 +160,30 @@ describe('merge()', () => {
     ])
   })
   it('merge arrays with objects with overwrite strategy', () => {
-    assert.deepStrictEqual(merge([[], ...test4], { arrayStrategy: 'overwrite' }), test4[1])
+    expect(merge([[], ...test4], { arrayStrategy: 'overwrite' })).toEqual(test4[1])
   })
 
   it('merge two arrays, even if they are empty', () => {
-    assert.deepStrictEqual(merge([], ['one', 'two']), ['one', 'two'])
+    expect(merge([], ['one', 'two'])).toEqual(['one', 'two'])
   })
 
   it('clone objects when the first argument is empty', () => {
     let parent = { options: { files: ['/this/path/one', '/this/path/two'] } }
     let child = { files: '/this/path', root: '/another/path' }
     let merged = merge({}, parent, { options: child })
-    assert.deepStrictEqual(merged, {
+    expect(merged).toEqual({
       options: {
         files: '/this/path',
         root: '/another/path'
       }
     })
-    assert.deepStrictEqual(parent, { options: { files: ['/this/path/one', '/this/path/two'] } })
+    expect(parent).toEqual({ options: { files: ['/this/path/one', '/this/path/two'] } })
+  })
+
+  it('accepts last value for non-object merges', () => {
+    let one = 'one'
+    let two = 'two'
+    expect(merge('', one, two)).toBe(two)
+    expect(merge(one, two)).toBe(two)
   })
 })
