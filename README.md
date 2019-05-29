@@ -114,6 +114,7 @@ Returns the target Array, which is now merged with the source Array.
 **`arrayStrategy`** _{String}_
 
 -   `unique` (_default_): Concatenate arrays and remove duplicates.
+-   `merge`: Same as unique, except nested objects and arrays are merged.
 -   `concat`: Concatenate arrays, but do not remove duplicates.
 -   `overwrite`: Overwrite target array with source.
 
