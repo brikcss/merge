@@ -43,6 +43,7 @@ let configs = [
       resolve(),
       commonjs(),
       babel({
+        babelrc: false,
         exclude: 'node_modules/**'
       }),
       isProd && uglify()
@@ -67,6 +68,7 @@ let configs = [
       resolve(),
       commonjs(),
       babel({
+        babelrc: false,
         exclude: 'node_modules/**',
         presets: [
           [

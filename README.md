@@ -116,3 +116,7 @@ Returns the target Array, which is now merged with the source Array.
 -   `unique` (_default_): Concatenate arrays and remove duplicates.
 -   `concat`: Concatenate arrays, but do not remove duplicates.
 -   `overwrite`: Overwrite target array with source.
+
+**`ignore`** _{String[]}_
+
+Array of string paths to ignore, or not merge. Use object key names and/or array index values to specify values to ignore. For example: `ignore: ['key', '1', 'a.b.c.d']` will ignore the object key `key`, the 2nd item an array, and the `d` property in the path `a.b.c.d`.
