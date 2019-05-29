@@ -58,6 +58,32 @@ describe('merge()', () => {
     expect(test1[0]).toEqual(result1)
   })
 
+  it('merge two arrays, even if they are empty', () => {
+    expect(merge([], ['one', 'two'])).toEqual(['one', 'two'])
+  })
+
+  it('clone objects when the first argument is empty', () => {
+    let parent = { options: { files: ['/this/path/one', '/this/path/two'] } }
+    let child = { files: '/this/path', root: '/another/path' }
+    let merged = merge({}, parent, { options: child })
+    expect(merged).toEqual({
+      options: {
+        files: '/this/path',
+        root: '/another/path'
+      }
+    })
+    expect(parent).toEqual({ options: { files: ['/this/path/one', '/this/path/two'] } })
+  })
+
+  it('accepts last value for non-object merges', () => {
+    let one = 'one'
+    let two = 'two'
+    expect(merge('', one, two)).toBe(two)
+    expect(merge(one, two)).toBe(two)
+  })
+})
+
+describe('merge({ arrayStrategy })', () => {
   const test2 = [
     { a: 'a', b: 'b', c: 'c', array: [1, 2, 3] },
     { b: 2, one: 1, array: [2, 3, 4] },
@@ -162,28 +188,48 @@ describe('merge()', () => {
   it('merge arrays with objects with overwrite strategy', () => {
     expect(merge([[], ...test4], { arrayStrategy: 'overwrite' })).toEqual(test4[1])
   })
+})
 
-  it('merge two arrays, even if they are empty', () => {
-    expect(merge([], ['one', 'two'])).toEqual(['one', 'two'])
+describe('merge({ ignore })', () => {
+  it('ignores given paths', () => {
+    expect(merge([
+      { one: 1, two: 2 },
+      { one: 'one', two: 'two' }
+    ], { ignore: [ 'one' ] })).toEqual({
+      one: 1,
+      two: 'two'
+    })
   })
 
-  it('clone objects when the first argument is empty', () => {
-    let parent = { options: { files: ['/this/path/one', '/this/path/two'] } }
-    let child = { files: '/this/path', root: '/another/path' }
-    let merged = merge({}, parent, { options: child })
-    expect(merged).toEqual({
-      options: {
-        files: '/this/path',
-        root: '/another/path'
+  it('ignores given nested paths', () => {
+    expect(merge([
+      { one: 1, two: { a: 'a', b: { c: 'c', d: { e: 'e' } } } },
+      { one: 'one', two: { a: 'b', b: { c: 'd', d: 'e' } } }
+    ], { ignore: [ 'one', 'two.b.d' ] })).toEqual({
+      one: 1,
+      two: {
+        a: 'b',
+        b: {
+          c: 'd',
+          d: {
+            e: 'e'
+          }
+        }
       }
     })
-    expect(parent).toEqual({ options: { files: ['/this/path/one', '/this/path/two'] } })
   })
 
-  it('accepts last value for non-object merges', () => {
-    let one = 'one'
-    let two = 'two'
-    expect(merge('', one, two)).toBe(two)
-    expect(merge(one, two)).toBe(two)
+  it('ignores given paths in arrays', () => {
+    const obj = { abc: 'abc', num: 123, nest: { a: 1, b: 2, c: 3 } }
+    expect(merge([
+      [1, 2, [3, 4, 5], obj, { a: { b: { c: 'abc', d: 'd' } } }],
+      [10, 9, [5, 3, 4], obj, { a: { b: { c: 'xyz', d: 123 } } }]
+    ], { ignore: ['1', '2.1', '4.a.b.d'], arrayStrategy: 'merge' })).toEqual([
+      10,
+      2,
+      [5, 4, 4],
+      obj,
+      { a: { b: { c: 'xyz', d: 'd' } } }
+    ])
   })
 })
