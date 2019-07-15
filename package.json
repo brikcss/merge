@@ -6,7 +6,7 @@
     "@babel/preset-env": "^7.4.5",
     "@brikcss/git-hooks": "^2.2.1",
     "@brikcss/watcher-cli": "^1.0.0",
-    "@commitlint/cli": "7.x",
+    "@commitlint/cli": "^8.1.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "codacy-coverage": "3.x",
     "coveralls": "3.x",
