@@ -11,7 +11,7 @@
     "codacy-coverage": "3.x",
     "coveralls": "3.x",
     "jest": "^24.8.0",
-    "rimraf": "2.x",
+    "rimraf": "^3.0.0",
     "rollup": "1.x",
     "rollup-plugin-babel": "4.x",
     "rollup-plugin-commonjs": "9.x",
