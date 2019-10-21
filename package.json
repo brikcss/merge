@@ -4,7 +4,7 @@
   "description": "Utility to perform a deep merge of a list of objects or arrays.",
   "devDependencies": {
     "@babel/preset-env": "^7.4.5",
-    "@brikcss/git-hooks": "^2.2.1",
+    "@brikcss/git-hooks": "^3.0.0",
     "@brikcss/watcher-cli": "^1.0.0",
     "@commitlint/cli": "7.x",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
