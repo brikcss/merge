@@ -14,6 +14,8 @@ module.exports = {
       2,
       'always',
       [
+        'major',
+        'minor',
         'feat',
         'feature',
         'fix',
