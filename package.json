@@ -9,7 +9,7 @@
     "@commitlint/cli": "^8.2.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "codacy-coverage": "^3.4.0",
-    "coveralls": "^3.0.0",
+    "coveralls": "^3.0.8",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",
     "rollup": "^1.25.2",
