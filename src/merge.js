@@ -38,6 +38,16 @@ function Merge (...args) {
   }, target)
 }
 
+
+/**
+ * Returns true, if given key is included in the blacklisted
+ * keys.
+ * @param key key for check, string.
+ */
+function isPrototypePolluted(key){
+  return ['__proto__', 'prototype', 'constructor'].includes(key);
+}
+
 /**
  * Merge two Arrays according to the specified strategy.
  * @param  {Array}  target
@@ -90,6 +100,7 @@ Merge.arrays = (target = [], source, { arrayStrategy = 'unique', ignore = [], pa
 Merge.objects = (target = {}, source, { arrayStrategy, ignore = [], parent = '' } = {}) => {
   // If both are iterable and of the same object type, merge them.
   Object.keys(source).forEach(function (key) {
+    if (isPrototypePolluted(key)) return;
     const value = source[key]
     const currentPath = _joinPath(parent, key)
 
