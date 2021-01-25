@@ -81,6 +81,15 @@ describe('merge()', () => {
     expect(merge('', one, two)).toBe(two)
     expect(merge(one, two)).toBe(two)
   })
+
+  it('Should prevent prototype pollution', () => {
+    const payload = JSON.parse('{"__proto__":{"polluted":"Yes! Its Polluted"}}');
+    const obj = {};
+    const result = merge(obj, payload);
+
+    expect(obj.polluted).toBe(undefined);
+    expect({}.polluted).toBe(undefined);
+  })
 })
 
 describe('merge({ arrayStrategy })', () => {
