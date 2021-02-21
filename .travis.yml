@@ -17,7 +17,7 @@ env: NODE_ENV=test
 # Run script.
 before_script: npm prune -d
 script: npm test -d
-after_success: npm run coveralls
+after_success: npm run coverage
 
 # Semantic release to NPM and GitHub.
 deploy:
