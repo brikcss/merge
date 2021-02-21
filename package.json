@@ -23,7 +23,8 @@
   "scripts": {
     "start": "npm run watch",
     "pretest": "npm run build",
-    "test": "standard *.js --fix && jest --config .jestrc.js --coverage && cat coverage/lcov.info | codacy-coverage && cat coverage/lcov.info | coveralls",
+    "test": "standard *.js --fix && jest --config .jestrc.js --coverage",
+    "coverage": "cat coverage/lcov.info | codacy-coverage && cat coverage/lcov.info | coveralls",
     "jest": "jest --config .jestrc.js",
     "prebuild": "rimraf dist",
     "build": "rollup --config=.rolluprc.js",
