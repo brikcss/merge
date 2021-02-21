@@ -2,7 +2,7 @@
 import merge from '../src/merge.js'
 
 describe('merge()', () => {
-  it('merge objects', () => {
+  it('merges objects', () => {
     const test1 = [
       {
         a: 1,
@@ -58,14 +58,14 @@ describe('merge()', () => {
     expect(test1[0]).toEqual(result1)
   })
 
-  it('merge two arrays, even if they are empty', () => {
+  it('merges two arrays, even if they are empty', () => {
     expect(merge([], ['one', 'two'])).toEqual(['one', 'two'])
   })
 
-  it('clone objects when the first argument is empty', () => {
-    let parent = { options: { files: ['/this/path/one', '/this/path/two'] } }
-    let child = { files: '/this/path', root: '/another/path' }
-    let merged = merge({}, parent, { options: child })
+  it('clones objects when the first argument is empty', () => {
+    const parent = { options: { files: ['/this/path/one', '/this/path/two'] } }
+    const child = { files: '/this/path', root: '/another/path' }
+    const merged = merge({}, parent, { options: child })
     expect(merged).toEqual({
       options: {
         files: '/this/path',
@@ -76,8 +76,8 @@ describe('merge()', () => {
   })
 
   it('accepts last value for non-object merges', () => {
-    let one = 'one'
-    let two = 'two'
+    const one = 'one'
+    const two = 'two'
     expect(merge('', one, two)).toBe(two)
     expect(merge(one, two)).toBe(two)
   })
@@ -89,7 +89,7 @@ describe('merge({ arrayStrategy })', () => {
     { b: 2, one: 1, array: [2, 3, 4] },
     { two: 2, array: [4, 5, 6] }
   ]
-  it('merge objects and make arrays unique', () => {
+  it('merges objects and make arrays unique', () => {
     expect(merge([{}, ...test2], { arrayStrategy: 'unique' })).toEqual({
       a: 'a',
       b: 2,
@@ -104,7 +104,7 @@ describe('merge({ arrayStrategy })', () => {
       { two: 2, array: [4, 5, 6] }
     ])
   })
-  it('merge objects and overwrite arrays', () => {
+  it('merges objects and overwrite arrays', () => {
     expect(merge([{}, ...test2], { arrayStrategy: 'overwrite' })).toEqual({
       a: 'a',
       b: 2,
@@ -119,7 +119,7 @@ describe('merge({ arrayStrategy })', () => {
       { two: 2, array: [4, 5, 6] }
     ])
   })
-  it('merge objects and concatenate arrays', () => {
+  it('merges objects and concatenate arrays', () => {
     expect(merge([{}, ...test2], { arrayStrategy: 'concat' })).toEqual({
       a: 'a',
       b: 2,
@@ -136,10 +136,10 @@ describe('merge({ arrayStrategy })', () => {
   })
 
   const test3 = [[1, 2, 3], [2, 3, 4, 5], [1, 5, 9, 10]]
-  it('merge and make arrays unique', () => {
+  it('merges and make arrays unique', () => {
     expect(merge([[], ...test3], { arrayStrategy: 'unique' })).toEqual([1, 2, 3, 4, 5, 9, 10])
   })
-  it('merge and concatenate arrays', () => {
+  it('merges and concatenate arrays', () => {
     expect(merge([[], ...test3], { arrayStrategy: 'concat' })).toEqual([
       1,
       2,
@@ -154,7 +154,7 @@ describe('merge({ arrayStrategy })', () => {
       10
     ])
   })
-  it('merge and overwrite arrays', () => {
+  it('merges and overwrite arrays', () => {
     expect(merge(test3, { arrayStrategy: 'overwrite' })).toEqual([1, 5, 9, 10])
   })
 
@@ -162,7 +162,7 @@ describe('merge({ arrayStrategy })', () => {
     [2, { one: 1, two: { three: 3, four: 4 }, five: 5 }, 9, 5],
     [1, { one: 'one', two: { three: 'three' }, four: 'four' }, 9, 10]
   ]
-  it('merge arrays with objects with concatenate strategy', () => {
+  it('merges arrays with objects with concatenate strategy', () => {
     expect(merge([[], ...test4], { arrayStrategy: 'concat' })).toEqual([
       2,
       { one: 1, two: { three: 3, four: 4 }, five: 5 },
@@ -174,7 +174,7 @@ describe('merge({ arrayStrategy })', () => {
       10
     ])
   })
-  it('merge arrays with objects with unique strategy', () => {
+  it('merges arrays with objects with unique strategy', () => {
     expect(merge([[], ...test4], { arrayStrategy: 'unique' })).toEqual([
       2,
       { one: 1, two: { three: 3, four: 4 }, five: 5 },
@@ -185,7 +185,7 @@ describe('merge({ arrayStrategy })', () => {
       10
     ])
   })
-  it('merge arrays with objects with overwrite strategy', () => {
+  it('merges arrays with objects with overwrite strategy', () => {
     expect(merge([[], ...test4], { arrayStrategy: 'overwrite' })).toEqual(test4[1])
   })
 })
@@ -195,7 +195,7 @@ describe('merge({ ignore })', () => {
     expect(merge([
       { one: 1, two: 2 },
       { one: 'one', two: 'two' }
-    ], { ignore: [ 'one' ] })).toEqual({
+    ], { ignore: ['one'] })).toEqual({
       one: 1,
       two: 'two'
     })
@@ -205,7 +205,7 @@ describe('merge({ ignore })', () => {
     expect(merge([
       { one: 1, two: { a: 'a', b: { c: 'c', d: { e: 'e' } } } },
       { one: 'one', two: { a: 'b', b: { c: 'd', d: 'e' } } }
-    ], { ignore: [ 'one', 'two.b.d' ] })).toEqual({
+    ], { ignore: ['one', 'two.b.d'] })).toEqual({
       one: 1,
       two: {
         a: 'b',

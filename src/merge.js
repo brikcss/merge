@@ -18,12 +18,17 @@ function Merge (...args) {
     args = args[0]
   }
 
+  // Keep options.arrayStrategy for backwards compatibility.
+  if (options.arrayStrategy) {
+    options.arrays = options.arrayStrategy
+  }
+
   // Validate there are at least two iterable values.
   if (args.length < 1) return false
   if (args.length < 2) return args[0]
 
   // Set target and remove target from objectsArray.
-  let target = args.shift()
+  const target = args.shift()
 
   // Reduce all object in array and merge them all.
   return args.reduce((target, source) => {
@@ -42,12 +47,12 @@ function Merge (...args) {
  * Merge two Arrays according to the specified strategy.
  * @param  {Array}  target
  * @param  {Array}  source
- * @param  {String}  options.arrayStrategy  ('unique')  Strategy to merge Arrays with. 'concat'
+ * @param  {String}  options.arrays  ('unique')  Strategy to merge Arrays with. 'concat'
  *     concatenates. 'unique' concatenates and removes duplicates. 'overwrite' overwrites target
  *     with source Array.
  * @return {Array}  Merged Arrays.
  */
-Merge.arrays = (target = [], source, { arrayStrategy = 'unique', ignore = [], parent = '' } = {}) => {
+Merge.arrays = (target = [], source, { arrays = 'unique', ignore = [], parent = '' } = {}) => {
   // If source or target are not Arrays, return target.
   if (!_isArray(target) || !_isArray(source)) return target
 
@@ -59,19 +64,19 @@ Merge.arrays = (target = [], source, { arrayStrategy = 'unique', ignore = [], pa
     if (ignore && ignore.includes(currentPath)) return
 
     // If source is not iterable, merge according to array strategy.
-    if (arrayStrategy === 'overwrite') {
+    if (arrays === 'overwrite') {
       target[i] = value
-    } else if (arrayStrategy === 'merge') {
+    } else if (arrays === 'merge') {
       if (_isIterable(value)) {
-        target[i] = Merge[_trueType(value) + 's'](target[i], value, { arrayStrategy, ignore, parent: _joinPath(parent, i) })
+        target[i] = Merge[_trueType(value) + 's'](target[i], value, { arrays, ignore, parent: _joinPath(parent, i) })
       } else {
         target[i] = value
       }
-    } else if (arrayStrategy === 'unique') {
+    } else if (arrays === 'unique') {
       if (!Object.is(target[i], value) && target.indexOf(value) === -1) {
         target.push(value)
       }
-    } else if (arrayStrategy === 'concat') {
+    } else if (arrays === 'concat') {
       target.push(value)
     } else {
       target[i] = value
@@ -87,7 +92,7 @@ Merge.arrays = (target = [], source, { arrayStrategy = 'unique', ignore = [], pa
  * @param  {Object} options
  * @return {Object}  Merged Objects.
  */
-Merge.objects = (target = {}, source, { arrayStrategy, ignore = [], parent = '' } = {}) => {
+Merge.objects = (target = {}, source, { arrays, ignore = [], parent = '' } = {}) => {
   // If both are iterable and of the same object type, merge them.
   Object.keys(source).forEach(function (key) {
     const value = source[key]
@@ -105,15 +110,15 @@ Merge.objects = (target = {}, source, { arrayStrategy, ignore = [], parent = '' 
 
     // If source is an array, merge as an array.
     } else if (_isArray(value)) {
-      // If target is not an Array, convert it to one according to arrayStrategy.
+      // If target is not an Array, convert it to one according to arrays.
       if (!_isArray(target[key])) {
-        if (arrayStrategy === 'overwrite') target[key] = []
+        if (arrays === 'overwrite') target[key] = []
         else target[key] = _exists(target[key]) ? [target[key]] : []
       }
       target[key] = Merge.arrays(
         target[key],
         value,
-        { arrayStrategy, ignore, parent: currentPath }
+        { arrays, ignore, parent: currentPath }
       )
 
     // Otherwise, merge as an object.
@@ -121,7 +126,7 @@ Merge.objects = (target = {}, source, { arrayStrategy, ignore = [], parent = '' 
       target[key] = Merge.objects(
         _isObject(target[key]) ? target[key] : {},
         value,
-        { arrayStrategy, ignore, parent: currentPath })
+        { arrays, ignore, parent: currentPath })
     }
   })
   return target
