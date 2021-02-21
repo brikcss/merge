@@ -110,16 +110,21 @@ Merge.objects = (target = {}, source, { arrays, ignore = [], parent = '' } = {})
 
     // If source is an array, merge as an array.
     } else if (_isArray(value)) {
-      // If target is not an Array, convert it to one according to arrays.
-      if (!_isArray(target[key])) {
-        if (arrays === 'overwrite') target[key] = []
-        else target[key] = _exists(target[key]) ? [target[key]] : []
+      // If arrays strategy is `overwrite`, overwrite the target.
+      if (arrays === 'overwrite') {
+        target[key] = value
+      } else {
+        // If target is not an Array, convert it to one according to arrays.
+        if (!_isArray(target[key])) {
+          target[key] = _exists(target[key]) ? [target[key]] : []
+        }
+        // Merge source and target arrays.
+        target[key] = Merge.arrays(
+          target[key],
+          value,
+          { arrays, ignore, parent: currentPath }
+        )
       }
-      target[key] = Merge.arrays(
-        target[key],
-        value,
-        { arrays, ignore, parent: currentPath }
-      )
 
     // Otherwise, merge as an object.
     } else {

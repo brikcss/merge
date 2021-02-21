@@ -156,6 +156,13 @@ describe('merge({ arrayStrategy })', () => {
   })
   it('merges and overwrite arrays', () => {
     expect(merge(test3, { arrayStrategy: 'overwrite' })).toEqual([1, 5, 9, 10])
+    expect(merge([{
+      one: [1, 5, 10, 25, 50, 100, 500, 1000, 2500, 5000, 7500, 10000]
+    }, {
+      one: [2, 5, 10]
+    }], { arrayStrategy: 'overwrite' })).toEqual({
+      one: [2, 5, 10]
+    })
   })
 
   const test4 = [
